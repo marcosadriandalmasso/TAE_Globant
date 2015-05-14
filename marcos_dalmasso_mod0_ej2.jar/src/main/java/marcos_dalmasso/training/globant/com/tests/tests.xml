@@ -1,0 +1,24 @@
+<suite name="suit 1" verbose="1" parallel="classes" thread-count="5">
+
+	<test name="Run on Firefox">
+		<parameter name="browser" value="FF"></parameter>
+		<classes>
+			<class name="marcos_dalmasso.training.globant.com.tests.Tests"></class>
+		</classes>
+		<methods>
+			<include name="loginTest"></include>
+			<include name="badUserLoginTest"></include>
+		</methods>
+	</test>
+
+	<test name="Run on IE">
+		<parameter name="browser" value="CH"></parameter>
+		<classes>
+			<class name="marcos_dalmasso.training.globant.com.tests.Tests"></class>
+		</classes>
+		<methods>
+			<include name="loginTest"></include>
+			<include name="badUserLoginTest"></include>
+		</methods>
+	</test>
+</suite>

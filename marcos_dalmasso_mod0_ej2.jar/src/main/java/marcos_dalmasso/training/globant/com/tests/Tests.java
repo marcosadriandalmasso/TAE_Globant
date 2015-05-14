@@ -1,7 +1,5 @@
 package marcos_dalmasso.training.globant.com.tests;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,12 +15,15 @@ import marcos_dalmasso.training.globant.com.pages.TripsDetailPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 /**
@@ -43,17 +44,43 @@ public class Tests {
 		}
 	}
 	
+//	@BeforeMethod
+//	@Parameters("browser")
+//	public void before()  {
+//		if()
+//		FirefoxProfile profile = new FirefoxProfile();       
+//		try {
+//			profile.addExtension(new File("C:\\FF_Profile\\firebug-2.0.9-fx.xpi"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		driver = new FirefoxDriver(profile);
+//		driver.manage().window().maximize();
+//	}
+	
 	@BeforeMethod
-	public void before() {
-		FirefoxProfile profile = new FirefoxProfile();       
-		try {
-			profile.addExtension(new File("C:\\FF_Profile\\firebug-2.0.9-fx.xpi"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	@Parameters("browser")
+	// public void before(String browser) throws MalformedURLException{
+	public void before(String browser) {
+		System.out.println(browser);
+		if (browser.equals("FF")) {
+			driver = new FirefoxDriver();
+			// DesiredCapabilities capability = DesiredCapabilities.firefox();
+			// driver = new RemoteWebDriver(new
+			// URL("http://localhost:4441/wd/hub"), capability);
 		}
-		driver = new FirefoxDriver(profile);
-		driver.manage().window().maximize();
+		if (browser.equals("CH")) {
+			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+			System.setProperty("webdriver.chrome.driver","C://Users//marcos.dalmasso//Downloads//seleniumWebDrivers//chromedriver_win32//chromedriver.exe");
+			driver = new ChromeDriver(capabilities);
+		}
+		if (browser.equals("IE")) {
+			DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+			capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+			System.setProperty("webdriver.ie.driver","C://Users//marcos.dalmasso//Downloads//seleniumWebDrivers//IEDriverServer.exe");
+			driver = new InternetExplorerDriver(capabilities);
+		}
 	}
 	
 	@AfterMethod
